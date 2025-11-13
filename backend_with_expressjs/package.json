@@ -1,0 +1,22 @@
+{
+  "name": "backend_with_expressjs",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "expressjs",
+    "backend",
+    "nodejs",
+    "dotenv",
+    "mongodb"
+  ],
+  "author": "shahzad",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "this backend is used for curd opetion of some other modules like user, order etc",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
