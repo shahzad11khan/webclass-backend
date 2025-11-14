@@ -1,8 +1,20 @@
 // import express from 'express'; // moduler syntax
 const express = require('express'); // commonjs syntax
+const mongoose = require('mongoose');
 const app = express();
 const PORT =6166;
 // express().get('path',()=>{})
+    // database connection
+    // mongoose.connect('url').then(message).catch(error)
+    const url = "mongodb://localhost:27017";
+    const db_name ="webclass";
+
+        mongoose.connect(`${url}/${db_name}`).then(()=>{
+            console.log("Database connected successfully");
+        }).catch((err)=>{
+            console.log("Error in database connection", err);
+        });
+    
 // get
 app.get('/',(req,res)=>{
     console.log("Root Url Is Hit..!")

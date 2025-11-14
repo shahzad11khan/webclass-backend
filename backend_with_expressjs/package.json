@@ -17,6 +17,7 @@
   "type": "commonjs",
   "description": "this backend is used for curd opetion of some other modules like user, order etc",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongoose": "^8.19.3"
   }
 }
