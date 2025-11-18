@@ -1,44 +1,46 @@
-// const myname = "shahzad"
-// console.log(myname)
-// // function 
-// // array 
-// // object
-// const myfun = () =>{
-// console.log("my fun is called..!")
-// }
+const express = require('express');
+const mongoose = require('mongoose');
+const { UsersCollection } = require('./Collections/Users.Collection');
+const app = express();
+const PORT = 3000;
+// data base connection
+mongoose.connect('mongodb://localhost:27017/webclass')
+    .then(console.log("Database connected successfully"))
+    .catch((err) => console.log(err));
 
-// myfun();
+    // middle ware 
+    app.use(express.json());
+// app.get()  red
+// app.post() create
+// app.put()  update
+// app.delete() delete
 
+app.get('/getAllUsers', async (request, response) => {
+    try {
+        const getAllUsers = await UsersCollection.find();
+        response.json(getAllUsers);
+    } catch (error) {
+        console.log(error);
 
-// const http = require('http');
-
-import http from 'http';
-const PORT = 6166 ;
-
-const server = http.createServer((request,response)=>{
-    // response.end(`hello from the server side..! ${obj.name}`)
-    // response.writeHead(200,{'Content-Type':'application/json'})
-    console.log(request.url);
-    console.log(request.method);
-    if(request.url === '/' && request.method === 'GET'){
-        response.writeHead(200,{'Content-Type':'application/json'})
-        response.end(JSON.stringify({message:"hello from the server side..!"}))
-    }else if(request.url === '/about' && request.method === 'GET'){
-        response.writeHead(200,{'Content-Type':'application/json'})
-        response.end(JSON.stringify({message:"hello from the about page..!"}))
-    }else if (request.url === '/user' && request.method === 'POST'){
-        const obj= {
-            name:"shahzad",
-            age:24,
-            city:"karachi"
-        }
-        response.writeHead(200,{'Content-Type':'application/json'})
-        response.end(JSON.stringify(obj))
-    }else{
-        response.writeHead(404,{'Content-Type':'application/json'})
-        response.end(JSON.stringify({message:"page not found..!"}))
-        }
+    }
 })
-server.listen(PORT,()=>{
-    console.log("server is running on http://localhost:6166")
+// http://localhost:3000/getAllUsers
+
+app.post('/createUser', async (request, response) => {
+    // console.log('Create user request received');
+    // response.send('Create user');
+    console.log(request.body);
+    try {
+        const newUserCreated = await UsersCollection.create({
+            name:request.body.name,
+            email:request.body.email,
+            password:request.body.password
+        });
+        response.json(newUserCreated);
+    } catch (error) {
+        console.log(error);
+    }
 })
+// http://localhost:3000/createUser
+
+app.listen(PORT, () => console.log('Server running on http://localhost:' + PORT));
